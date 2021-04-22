@@ -15,8 +15,6 @@ var (
 	DeleteWebhook = NewAPIRoute(DELETE, "/webhooks/{webhook.id}/{token}")
 
 	CreateWebhookMessage       = NewAPIRoute(POST, "/webhooks/{webhook.id}/{webhook.token}")
-	CreateWebhookMessageSlack  = NewAPIRoute(POST, "/webhooks/{webhook.id}/{webhook.token}/slack")
-	CreateWebhookMessageGithub = NewAPIRoute(POST, "/webhooks/{webhook.id}/{webhook.token}/github")
 	UpdateWebhookMessage       = NewAPIRoute(POST, "/webhooks/{webhook.id}/{webhook.token}/messages/{message.id}")
 	DeleteWebhookMessage       = NewAPIRoute(POST, "/webhooks/{webhook.id}/{webhook.token}/messages/{message.id}")
 )

@@ -7,7 +7,7 @@ import (
 	"github.com/DisgoOrg/disgohook/internal"
 )
 
-func NewDisgoHookByToken(webhookToken string) (api.DisgoHook, error) {
+func NewWebhookByToken(webhookToken string) (api.Webhook, error) {
 	webhookTokenSplit := strings.SplitN(webhookToken, "/", 2)
 	if len(webhookTokenSplit) != 2 {
 		return nil, api.ErrMalformedWebhookToken
@@ -15,6 +15,6 @@ func NewDisgoHookByToken(webhookToken string) (api.DisgoHook, error) {
 	return internal.NewDisgoHookImpl(webhookTokenSplit[0], webhookTokenSplit[1]), nil
 }
 
-func NewDisgoHookByID(id string, token string) (api.DisgoHook, error) {
+func NewWebhookByID(id string, token string) (api.Webhook, error) {
 	return nil, nil
 }

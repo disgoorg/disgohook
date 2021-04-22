@@ -1,31 +1,33 @@
 package api
 
-type WebhookType int
+import (
+	"errors"
+	"regexp"
 
-const (
-	WebhookTypeIncoming WebhookType = iota
-	WebhookTypeChannelFollower
+	"github.com/DisgoOrg/log"
 )
 
-type Webhook struct {
-	DisgoHook     DisgoHook
-	ID            string      `json:"id"`
-	Type          WebhookType `json:"type"`
-	GuildID       *string     `json:"guild_id,omitempty"`
-	ChannelID     string      `json:"channel_id"`
-	User          *User       `json:"user,omitempty"`
-	Name          *string     `json:"name"`
-	Avatar        *string     `json:"avatar"`
-	Token         *string     `json:"token"`
-	ApplicationID *string     `json:"application_id"`
-	Guild         *Guild      `json:"guild"`
-	Channel       *Channel    `json:"channel"`
-	URL           *string
-}
+var WebhookPattern = regexp.MustCompile("(?:https?://)?(?:\\w+\\.)?discord(?:app)?\\.com/api(?:/v\\d+)?/webhooks/(\\d+)/([\\w-]+)(?:/(?:\\w+)?)?")
 
-func (w *Webhook) Update(webhookUpdate UpdateWebhook) error {
-	webhook, err := w.DisgoHook.RestClient().UpdateWebhook(w.ID, *w.Token, webhookUpdate)
-}
+var ErrMalformedWebhookToken = errors.New("malformed webhook token <id>/<token>")
 
-type UpdateWebhook struct {
+type Webhook interface {
+	RestClient() RestClient
+	Logger() log.Logger
+	DefaultAllowedMentions() *AllowedMentions
+	SetDefaultAllowedMentions(allowedMentions *AllowedMentions)
+
+	SendMessage(message WebhookMessageCreate) (*WebhookMessage, error)
+	SendContent(message string) (*WebhookMessage, error)
+	SendEmbed(embed *Embed, embeds ...*Embed)
+
+	EditMessage(id string, message WebhookMessageUpdate) (*WebhookMessage, error)
+	EditContent(message string) (*WebhookMessage, error)
+	EditEmbed(embed *Embed, embeds ...*Embed)
+
+	DeleteMessage(id string) error
+
+	Token() string
+	ID() string
+	URL() string
 }
