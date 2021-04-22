@@ -12,7 +12,7 @@ func NewWebhookByToken(webhookToken string) (api.Webhook, error) {
 	if len(webhookTokenSplit) != 2 {
 		return nil, api.ErrMalformedWebhookToken
 	}
-	return internal.NewDisgoHookImpl(webhookTokenSplit[0], webhookTokenSplit[1]), nil
+	return internal.NewWebhookImpl(webhookTokenSplit[0], webhookTokenSplit[1]), nil
 }
 
 func NewWebhookByID(id string, token string) (api.Webhook, error) {

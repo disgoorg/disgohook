@@ -10,14 +10,14 @@ import (
 //var _ api.Webhook = (*WebhookImpl)(nil)
 
 func NewWebhookImpl(client *http.Client, logger log.Logger, token string, id string) *WebhookImpl {
-	restClient := newRestClientImpl(client)
-	return &WebhookImpl{
-		restClient:             restClient,
+	webhook := &WebhookImpl{
 		logger:                 logger,
 		defaultAllowedMentions: &api.DefaultAllowedMentions,
 		token:                  token,
 		id:                     id,
 	}
+	webhook.restClient = newRestClientImpl(client, webhook)
+	return webhook
 }
 
 type WebhookImpl struct {
@@ -41,9 +41,7 @@ func (h *WebhookImpl) SetDefaultAllowedMentions(allowedMentions *api.AllowedMent
 	h.defaultAllowedMentions = allowedMentions
 }
 
-func (h *WebhookImpl) SendMessage() (*api.Message, error) {
-	return nil, nil
-}
+
 func (h *WebhookImpl) Token() string {
 	return h.token
 }
