@@ -35,7 +35,7 @@ type WebhookAttachment struct {
 // WebhookMessageUpdate is used to edit a Message
 type WebhookMessageUpdate struct {
 	Content         string           `json:"content,omitempty"`
-	Embeds          []*Embed         `json:"embed,omitempty"`
+	Embeds          []*Embed         `json:"embeds,omitempty"`
 	AllowedMentions *AllowedMentions `json:"allowed_mentions,omitempty"`
 }
 
@@ -45,6 +45,6 @@ type WebhookMessageCreate struct {
 	Username        string           `json:"username,omitempty"`
 	AvatarURL       string           `json:"avatar_url,omitempty"`
 	TTS             bool             `json:"tts,omitempty"`
-	Embeds          []*Embed         `json:"embed,omitempty"`
+	Embeds          []*Embed         `json:"embeds,omitempty"`
 	AllowedMentions *AllowedMentions `json:"allowed_mentions,omitempty"`
 }
