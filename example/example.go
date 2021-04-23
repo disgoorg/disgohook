@@ -10,13 +10,13 @@ import (
 func main() {
 	logger := logrus.New()
 	logger.SetLevel(logrus.DebugLevel)
-	logger.Info("starting test...")
+	logger.Info("starting example...")
 	webhook, err := disgohook.NewWebhookByToken(nil, logger, os.Getenv("webhook_token"))
 	if err != nil {
 		logger.Errorf("failed to create webhook: %s", err)
 		return
 	}
-	_, err = webhook.SendContent("test")
+	_, err = webhook.SendContent("example message")
 	if err != nil {
 		logger.Errorf("failed to send webhook message: %s", err)
 		return

@@ -13,7 +13,6 @@ DisgoHook is a simple [Discord Webhook](https://discord.com/developers/docs/reso
 
 ### Installing
 
-
 `go get`
 
 ```sh
@@ -28,8 +27,7 @@ Import the package into your project.
 import "github.com/DisgoOrg/disgohook"
 ```
 
-Create a new Webhook by `webhook_id/webhook_token` and pass a [logger](https://github.com/DisgoOrg/log) like [logrus](https://github.com/sirupsen/logrus).
-This webhook then can be used to send/edit/delete messages
+Create a new Webhook by `webhook_id/webhook_token` and pass a [logger](https://github.com/DisgoOrg/log) like [logrus](https://github.com/sirupsen/logrus). This webhook then can be used to send/edit/delete messages
 
 ```go
 logger := logrus.New()
@@ -39,6 +37,7 @@ webhook, err := disgohook.NewWebhookByToken(nil, logger, "webhook_id/webhook_tok
 ## Documentation
 
 Documentation is unfinished and can be found under
+
 * [![Go Reference](https://pkg.go.dev/badge/github.com/DisgoOrg/disgohook.svg)](https://pkg.go.dev/github.com/DisgoOrg/disgohook)
 * [![Discord Webhook Documentation](https://img.shields.io/badge/Discord%20Webhook%20Documentation-blue.svg)](https://discord.com/developers/docs/resources/webhook)
 
