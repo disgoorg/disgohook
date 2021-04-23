@@ -2,8 +2,8 @@
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/DisgoOrg/disgohook.svg)](https://pkg.go.dev/github.com/DisgoOrg/disgohook)
 [![Go Report](http://goreportcard.com/badge/DisgoOrg/disgohook)](https://goreportcard.com/report/DisgoOrg/disgohook)
-[![Go Version](https://img.shields.io/github/go-mod/go-version/DisgoOrg/disgohook)
-[![Disgo Version](https://img.shields.io/github/v/release/DisgoOrg/disgohook)
+[![Go Version](https://img.shields.io/github/go-mod/go-version/DisgoOrg/disgohook)](https://golang.org/doc/devel/release.html)
+[![Disgo Version](https://img.shields.io/github/v/release/DisgoOrg/disgohook)](https://github.com/DisgoOrg/disgohook/releases/latest)
 [![Disgo Discord](https://img.shields.io/badge/Disgo%20Discord-blue.svg)](https://discord.gg/mgjJeufk)
 
 DisgoHook is a simple [Discord Webhook](https://discord.com/developers/docs/resources/webhook) library written in [Go](https://golang.org/) aimed for simplicity and easy use
