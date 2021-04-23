@@ -1,2 +1,56 @@
 # disgohook
-Webhook Client in Golang
+
+[![Go Reference](https://pkg.go.dev/badge/github.com/DisgoOrg/disgohook.svg)](https://pkg.go.dev/github.com/DisgoOrg/disgohook)
+[![Go Report](http://goreportcard.com/badge/DisgoOrg/disgohook)](https://goreportcard.com/report/DisgoOrg/disgohook)
+[![Disgo Discord](https://img.shields.io/badge/Disgo%20Discord-blue.svg)](https://discord.gg/mgjJeufk)
+
+DisgoHook is a simple [Discord Webhook](https://discord.com/developers/docs/resources/webhook) library written in [Go](https://golang.org/) aimed for simplicity and easy use
+
+## Getting Started
+
+### Installing
+
+
+`go get`
+
+```sh
+go get github.com/DisgoOrg/disgohook
+```
+
+### Usage
+
+Import the package into your project.
+
+```go
+import "github.com/DisgoOrg/disgohook"
+```
+
+Create a new Webhook by `webhook_id/webhook_token` and pass a [logger](https://github.com/DisgoOrg/log) like [logrus](https://github.com/sirupsen/logrus).
+This webhook then can be used to send/edit/delete messages
+
+```go
+logger := logrus.New()
+webhook, err := disgohook.NewWebhookByToken(nil, logger, "webhook_id/webhook_token")
+```
+
+## Documentation
+
+Documentation is unfinished and can be found under
+* [![Go Reference](https://pkg.go.dev/badge/github.com/DisgoOrg/disgohook.svg)](https://pkg.go.dev/github.com/DisgoOrg/disgohook)
+* [![Discord Webhook Documentation](https://img.shields.io/badge/Discord%20Webhook%20Documentation-blue.svg)](https://discord.com/developers/docs/resources/webhook)
+
+## Examples
+
+You can find exampples under [example](https://github.com/DisgoOrg/disgohook/tree/master/example) and [DisLog](https://github.com/DisgoOrg/dislog)
+
+## Troubleshooting
+
+For help feel free to open an issues or reach out on [Discord](https://discord.gg/mgjJeufk)
+
+## Contributing
+
+Contributions are welcomed but for bigger changes please first reach out via [Discord](https://discord.gg/mgjJeufk) or create an issue to discuss your intetions and ideas.
+
+## License
+
+Distributed under the Apache License 2.0. See LICENSE for more information.
