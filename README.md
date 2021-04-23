@@ -3,6 +3,7 @@
 [![Go Reference](https://pkg.go.dev/badge/github.com/DisgoOrg/disgohook.svg)](https://pkg.go.dev/github.com/DisgoOrg/disgohook)
 [![Go Report](http://goreportcard.com/badge/DisgoOrg/disgohook)](https://goreportcard.com/report/DisgoOrg/disgohook)
 [![Go Version](https://img.shields.io/github/go-mod/go-version/DisgoOrg/disgohook)](https://golang.org/doc/devel/release.html)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/DisgoOrg/disgohook/blob/master/LICENSE)
 [![Disgo Version](https://img.shields.io/github/v/release/DisgoOrg/disgohook)](https://github.com/DisgoOrg/disgohook/releases/latest)
 [![Disgo Discord](https://img.shields.io/badge/Disgo%20Discord-blue.svg)](https://discord.gg/mgjJeufk)
 
@@ -55,4 +56,4 @@ Contributions are welcomed but for bigger changes please first reach out via [Di
 
 ## License
 
-Distributed under the Apache License 2.0. See LICENSE for more information.
+Distributed under the [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/DisgoOrg/disgohook/blob/master/LICENSE). See LICENSE for more information.
