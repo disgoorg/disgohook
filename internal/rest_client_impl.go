@@ -53,7 +53,6 @@ func (r *RestClientImpl) Request(route endpoints.CompiledAPIRoute, rqBody interf
 	}
 
 	rq.Header.Set("User-Agent", r.UserAgent())
-	rq.Header.Set("Authorization", "Bot "+r.webhook.Token())
 	rq.Header.Set("Content-Type", "application/json")
 
 	rs, err := r.client.Do(rq)

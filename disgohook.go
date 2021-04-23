@@ -8,14 +8,14 @@ import (
 	"github.com/DisgoOrg/log"
 )
 
-func NewWebhookByToken(webhookToken string, logger log.Logger) (api.Webhook, error) {
+func NewWebhookByToken(logger log.Logger, webhookToken string) (api.Webhook, error) {
 	webhookTokenSplit := strings.SplitN(webhookToken, "/", 2)
 	if len(webhookTokenSplit) != 2 {
 		return nil, api.ErrMalformedWebhookToken
 	}
-	return internal.NewWebhookImpl(nil, logger, webhookTokenSplit[0], webhookTokenSplit[1]), nil
+	return internal.NewWebhookImpl(nil, logger, webhookTokenSplit[1], webhookTokenSplit[0]), nil
 }
 
-func NewWebhookByID(id string, token string) (api.Webhook, error) {
-	return nil, nil
+func NewWebhookByIDToken(logger log.Logger, webhookID string, webhookToken string) (api.Webhook, error) {
+	return internal.NewWebhookImpl(nil, logger, webhookID, webhookToken), nil
 }

@@ -14,7 +14,7 @@ var (
 	UpdateWebhok  = NewAPIRoute(PATCH, "/webhooks/{webhook.id}/{token}")
 	DeleteWebhook = NewAPIRoute(DELETE, "/webhooks/{webhook.id}/{token}")
 
-	CreateWebhookMessage = NewAPIRoute(POST, "/webhooks/{webhook.id}/{webhook.token}")
+	CreateWebhookMessage = NewAPIRoute(POST, "/webhooks/{webhook.id}/{webhook.token}?wait=true")
 	UpdateWebhookMessage = NewAPIRoute(POST, "/webhooks/{webhook.id}/{webhook.token}/messages/{message.id}")
 	DeleteWebhookMessage = NewAPIRoute(POST, "/webhooks/{webhook.id}/{webhook.token}/messages/{message.id}")
 )
