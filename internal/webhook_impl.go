@@ -9,14 +9,14 @@ import (
 	"github.com/DisgoOrg/disgohook/api"
 )
 
-//var _ api.Webhook = (*WebhookImpl)(nil)
+var _ api.Webhook = (*WebhookImpl)(nil)
 
-func NewWebhookImpl(client *http.Client, logger log.Logger, token string, id string) *WebhookImpl {
+func NewWebhookImpl(client *http.Client, logger log.Logger, id string, token string) api.Webhook {
 	webhook := &WebhookImpl{
 		logger:                 logger,
 		defaultAllowedMentions: &api.DefaultAllowedMentions,
-		token:                  token,
 		id:                     id,
+		token:                  token,
 	}
 	webhook.restClient = newRestClientImpl(client, webhook)
 	return webhook
@@ -26,8 +26,8 @@ type WebhookImpl struct {
 	restClient             api.RestClient
 	logger                 log.Logger
 	defaultAllowedMentions *api.AllowedMentions
-	token                  string
 	id                     string
+	token                  string
 }
 
 func (h *WebhookImpl) RestClient() api.RestClient {
@@ -43,28 +43,28 @@ func (h *WebhookImpl) SetDefaultAllowedMentions(allowedMentions *api.AllowedMent
 	h.defaultAllowedMentions = allowedMentions
 }
 
-func (h *WebhookImpl) SendMessage(message api.WebhookMessageCreate) (*api.WebhookMessage, error) {
+func (h *WebhookImpl) SendMessage(message *api.WebhookMessageCreate) (*api.WebhookMessage, error) {
 	return h.RestClient().CreateWebhookMessage(h.id, h.token, message)
 }
 
 func (h *WebhookImpl) SendContent(content string) (*api.WebhookMessage, error) {
-	return h.RestClient().CreateWebhookMessage(h.id, h.token, api.NewWebhookMessageWithContent(content).Build())
+	return h.RestClient().CreateWebhookMessage(h.id, h.token, api.NewWebhookMessageBuilderWithContent(content).Build())
 }
 
 func (h *WebhookImpl) SendEmbed(embed *api.Embed, embeds ...*api.Embed) (*api.WebhookMessage, error) {
-	return h.RestClient().CreateWebhookMessage(h.id, h.token, api.NewWebhookMessageWithEmbeds(embed, embeds...).Build())
+	return h.RestClient().CreateWebhookMessage(h.id, h.token, api.NewWebhookMessageBuilderWithEmbeds(embed, embeds...).Build())
 }
 
-func (h *WebhookImpl) EditMessage(messageID string, message api.WebhookMessageUpdate) (*api.WebhookMessage, error) {
+func (h *WebhookImpl) EditMessage(messageID string, message *api.WebhookMessageUpdate) (*api.WebhookMessage, error) {
 	return h.RestClient().UpdateWebhookMessage(h.id, h.token, messageID, message)
 }
 
 func (h *WebhookImpl) EditContent(messageID string, content string) (*api.WebhookMessage, error) {
-	return h.RestClient().UpdateWebhookMessage(h.id, h.token, messageID, api.WebhookMessageUpdate{Content: content})
+	return h.RestClient().UpdateWebhookMessage(h.id, h.token, messageID, &api.WebhookMessageUpdate{Content: &content})
 }
 
 func (h *WebhookImpl) EditEmbed(messageID string, embed *api.Embed, embeds ...*api.Embed) (*api.WebhookMessage, error) {
-	return h.RestClient().UpdateWebhookMessage(h.id, h.token, messageID, api.WebhookMessageUpdate{Embeds: append([]*api.Embed{embed}, embeds...)})
+	return h.RestClient().UpdateWebhookMessage(h.id, h.token, messageID, &api.WebhookMessageUpdate{Embeds: append([]*api.Embed{embed}, embeds...)})
 }
 
 func (h *WebhookImpl) DeleteMessage(messageID string) error {
