@@ -5,6 +5,10 @@ type WebhookMessageBuilder struct {
 	WebhookMessageCreate
 }
 
+func NewWebhookMessageWithEmbeds(embed *Embed, embeds ...*Embed) *WebhookMessageBuilder {
+	return NewWebhookMessageBuilder().AddEmbeds(embed).AddEmbeds(embeds...)
+}
+
 // NewWebhookMessageBuilder creates a new WebhookMessageBuilder to be built later
 func NewWebhookMessageBuilder() *WebhookMessageBuilder {
 	return &WebhookMessageBuilder{
