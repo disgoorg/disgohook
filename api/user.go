@@ -31,9 +31,9 @@ func (u User) String() string {
 }
 
 // AvatarURL returns the Icon of a User
-func (g *User) AvatarURL() string {
-	if g.Avatar == nil {
-		discrim, _ := strconv.Atoi(g.Discriminator)
+func (u *User) AvatarURL() string {
+	if u.Avatar == nil {
+		discrim, _ := strconv.Atoi(u.Discriminator)
 		route, err := endpoints.DefaultUserAvatar.Compile(endpoints.PNG, discrim%5)
 		if err != nil {
 			return ""
@@ -41,10 +41,10 @@ func (g *User) AvatarURL() string {
 		return route.Route()
 	}
 	format := endpoints.PNG
-	if strings.HasPrefix(*g.Avatar, "a_") {
+	if strings.HasPrefix(*u.Avatar, "a_") {
 		format = endpoints.GIF
 	}
-	route, err := endpoints.UserAvatar.Compile(format, g.ID, *g.Avatar)
+	route, err := endpoints.UserAvatar.Compile(format, u.ID, *u.Avatar)
 	if err != nil {
 		return ""
 	}

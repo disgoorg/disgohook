@@ -1,8 +1,10 @@
 package internal
 
 import (
-	"github.com/DisgoOrg/log"
 	"net/http"
+
+	"github.com/DisgoOrg/disgohook/api/endpoints"
+	"github.com/DisgoOrg/log"
 
 	"github.com/DisgoOrg/disgohook/api"
 )
@@ -41,10 +43,41 @@ func (h *WebhookImpl) SetDefaultAllowedMentions(allowedMentions *api.AllowedMent
 	h.defaultAllowedMentions = allowedMentions
 }
 
+func (h *WebhookImpl) SendMessage(message api.WebhookMessageCreate) (*api.WebhookMessage, error) {
+	return h.RestClient().CreateWebhookMessage(h.id, h.token, message)
+}
+
+func (h *WebhookImpl) SendContent(content string) (*api.WebhookMessage, error) {
+	return h.RestClient().CreateWebhookMessage(h.id, h.token, api.NewWebhookMessageWithContent(content).Build())
+}
+
+func (h *WebhookImpl) SendEmbed(embed *api.Embed, embeds ...*api.Embed) (*api.WebhookMessage, error) {
+	return h.RestClient().CreateWebhookMessage(h.id, h.token, api.NewWebhookMessageWithEmbeds(embed, embeds...).Build())
+}
+
+func (h *WebhookImpl) EditMessage(messageID string, message api.WebhookMessageUpdate) (*api.WebhookMessage, error) {
+	return h.RestClient().UpdateWebhookMessage(h.id, h.token, messageID, message)
+}
+
+func (h *WebhookImpl) EditContent(messageID string, content string) (*api.WebhookMessage, error) {
+	return h.RestClient().UpdateWebhookMessage(h.id, h.token, messageID, api.WebhookMessageUpdate{Content: content})
+}
+
+func (h *WebhookImpl) EditEmbed(messageID string, embed *api.Embed, embeds ...*api.Embed) (*api.WebhookMessage, error) {
+	return h.RestClient().UpdateWebhookMessage(h.id, h.token, messageID, api.WebhookMessageUpdate{Embeds: append([]*api.Embed{embed}, embeds...)})
+}
+
+func (h *WebhookImpl) DeleteMessage(messageID string) error {
+	return h.RestClient().DeleteWebhookMessage(h.id, h.token, messageID)
+}
 
 func (h *WebhookImpl) Token() string {
 	return h.token
 }
 func (h *WebhookImpl) ID() string {
 	return h.id
+}
+func (h *WebhookImpl) URL() string {
+	compiledRoute, _ := endpoints.GetWebhook.Compile(h.id, h.token)
+	return compiledRoute.Route()
 }

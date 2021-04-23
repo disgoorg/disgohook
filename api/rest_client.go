@@ -24,7 +24,7 @@ type RestClient interface {
 	UserAgent() string
 	Request(route endpoints.CompiledAPIRoute, rqBody interface{}, rsBody interface{}) error
 
-	CreateWebhookMessage(webhookID string, webhookToken string, message *WebhookMessageCreate) (*WebhookMessage, error)
-	UpdateWebhookMessage(webhookID string, webhookToken string, messageID string, message *WebhookMessageUpdate) (*WebhookMessage, error)
+	CreateWebhookMessage(webhookID string, webhookToken string, message WebhookMessageCreate) (*WebhookMessage, error)
+	UpdateWebhookMessage(webhookID string, webhookToken string, messageID string, message WebhookMessageUpdate) (*WebhookMessage, error)
 	DeleteWebhookMessage(webhookID string, webhookToken string, messageID string) error
 }

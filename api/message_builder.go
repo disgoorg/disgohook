@@ -9,6 +9,10 @@ func NewWebhookMessageWithEmbeds(embed *Embed, embeds ...*Embed) *WebhookMessage
 	return NewWebhookMessageBuilder().AddEmbeds(embed).AddEmbeds(embeds...)
 }
 
+func NewWebhookMessageWithContent(content string) *WebhookMessageBuilder {
+	return NewWebhookMessageBuilder().SetContent(content)
+}
+
 // NewWebhookMessageBuilder creates a new WebhookMessageBuilder to be built later
 func NewWebhookMessageBuilder() *WebhookMessageBuilder {
 	return &WebhookMessageBuilder{

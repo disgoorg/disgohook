@@ -18,12 +18,12 @@ type Webhook interface {
 	SetDefaultAllowedMentions(allowedMentions *AllowedMentions)
 
 	SendMessage(message WebhookMessageCreate) (*WebhookMessage, error)
-	SendContent(message string) (*WebhookMessage, error)
-	SendEmbed(embed *Embed, embeds ...*Embed)
+	SendContent(content string) (*WebhookMessage, error)
+	SendEmbed(embed *Embed, embeds ...*Embed) (*WebhookMessage, error)
 
-	EditMessage(id string, message WebhookMessageUpdate) (*WebhookMessage, error)
-	EditContent(message string) (*WebhookMessage, error)
-	EditEmbed(embed *Embed, embeds ...*Embed)
+	EditMessage(messageID string, message WebhookMessageUpdate) (*WebhookMessage, error)
+	EditContent(messageID string, content string) (*WebhookMessage, error)
+	EditEmbed(messageID string, embed *Embed, embeds ...*Embed) (*WebhookMessage, error)
 
 	DeleteMessage(id string) error
 

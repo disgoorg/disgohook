@@ -116,26 +116,26 @@ func (r *RestClientImpl) Request(route endpoints.CompiledAPIRoute, rqBody interf
 	}
 }
 
-func (r *RestClientImpl) CreateWebhookMessage(webhookID string, webhookToken string, messageCreate *api.WebhookMessageCreate) (message *api.WebhookMessage, err error) {
+func (r *RestClientImpl) CreateWebhookMessage(webhookID string, webhookToken string, messageCreate api.WebhookMessageCreate) (message *api.WebhookMessage, err error) {
 	var compiledRoute *endpoints.CompiledAPIRoute
 	compiledRoute, err = endpoints.CreateWebhookMessage.Compile(webhookID, webhookToken)
 	if err != nil {
 		return
 	}
-	err = r.Request(*compiledRoute, message, &message)
+	err = r.Request(*compiledRoute, messageCreate, &message)
 	if message != nil {
 		message.Webhook = r.webhook
 	}
 	return
 }
 
-func (r *RestClientImpl) UpdateWebhookMessage(webhookID string, webhookToken string, messageID string, messageUpdate *api.WebhookMessageUpdate) (message *api.WebhookMessage, err error) {
+func (r *RestClientImpl) UpdateWebhookMessage(webhookID string, webhookToken string, messageID string, messageUpdate api.WebhookMessageUpdate) (message *api.WebhookMessage, err error) {
 	var compiledRoute *endpoints.CompiledAPIRoute
 	compiledRoute, err = endpoints.UpdateWebhookMessage.Compile(webhookID, webhookToken, messageID)
 	if err != nil {
 		return
 	}
-	err = r.Request(*compiledRoute, message, &message)
+	err = r.Request(*compiledRoute, messageUpdate, &message)
 	if message != nil {
 		message.Webhook = r.webhook
 	}
