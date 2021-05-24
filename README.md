@@ -1,7 +1,7 @@
 # disgohook
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/DisgoOrg/disgohook.svg)](https://pkg.go.dev/github.com/DisgoOrg/disgohook)
-[![Go Report](http://goreportcard.com/badge/DisgoOrg/disgohook)](https://goreportcard.com/report/DisgoOrg/disgohook)
+[![Go Report](https://goreportcard.com/badge/github.com/DisgoOrg/disgohook)](https://goreportcard.com/report/github.com/DisgoOrg/disgohook)
 [![Go Version](https://img.shields.io/github/go-mod/go-version/DisgoOrg/disgohook)](https://golang.org/doc/devel/release.html)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/DisgoOrg/disgohook/blob/master/LICENSE)
 [![Disgo Version](https://img.shields.io/github/v/release/DisgoOrg/disgohook)](https://github.com/DisgoOrg/disgohook/releases/latest)
@@ -12,8 +12,6 @@ DisgoHook is a simple [Discord Webhook](https://discord.com/developers/docs/reso
 ## Getting Started
 
 ### Installing
-
-`go get`
 
 ```sh
 go get github.com/DisgoOrg/disgohook
