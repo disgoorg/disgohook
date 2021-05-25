@@ -11,10 +11,10 @@ const (
 // Webhooks
 var (
 	GetWebhook    = NewAPIRoute(GET, "/webhooks/{webhook.id}/{token}")
-	UpdateWebhok  = NewAPIRoute(PATCH, "/webhooks/{webhook.id}/{token}")
+	UpdateWebhook  = NewAPIRoute(PATCH, "/webhooks/{webhook.id}/{token}")
 	DeleteWebhook = NewAPIRoute(DELETE, "/webhooks/{webhook.id}/{token}")
 
-	CreateWebhookMessage = NewAPIRoute(POST, "/webhooks/{webhook.id}/{webhook.token}?wait=true")
+	CreateWebhookMessage = NewAPIRoute(POST, "/webhooks/{webhook.id}/{webhook.token}", "wait", "thread_id")
 	UpdateWebhookMessage = NewAPIRoute(POST, "/webhooks/{webhook.id}/{webhook.token}/messages/{message.id}")
 	DeleteWebhookMessage = NewAPIRoute(POST, "/webhooks/{webhook.id}/{webhook.token}/messages/{message.id}")
 )

@@ -1,33 +1,27 @@
 package api
 
-import (
-	"errors"
-	"regexp"
+import "io"
 
-	"github.com/DisgoOrg/log"
+type WebhookType int
+
+const (
+	WebhookTypeIncoming WebhookType = iota + 1
+	WebhookTypeChannelFollower
+	WebhookTypeApplication
 )
 
-var WebhookPattern = regexp.MustCompile("(?:https?://)?(?:\\w+\\.)?discord(?:app)?\\.com/api(?:/v\\d+)?/webhooks/(\\d+)/([\\w-]+)(?:/(?:\\w+)?)?")
+type Webhook struct {
+	ID            Snowflake   `json:"id"`
+	Type          WebhookType `json:"type"`
+	GuildID       *Snowflake  `json:"guild_id"`
+	ChannelID     *Snowflake  `json:"channel_id"`
+	Name          string      `json:"name"`
+	Avatar        string      `json:"avatar"`
+	Token         *string     `json:"token"`
+	ApplicationID Snowflake   `json:"application_id"`
+}
 
-var ErrMalformedWebhookToken = errors.New("malformed webhook token <id>/<token>")
-
-type Webhook interface {
-	RestClient() RestClient
-	Logger() log.Logger
-	DefaultAllowedMentions() *AllowedMentions
-	SetDefaultAllowedMentions(allowedMentions *AllowedMentions)
-
-	SendMessage(message *WebhookMessageCreate) (*WebhookMessage, error)
-	SendContent(content string) (*WebhookMessage, error)
-	SendEmbed(embed *Embed, embeds ...*Embed) (*WebhookMessage, error)
-
-	EditMessage(messageID string, message *WebhookMessageUpdate) (*WebhookMessage, error)
-	EditContent(messageID string, content string) (*WebhookMessage, error)
-	EditEmbed(messageID string, embed *Embed, embeds ...*Embed) (*WebhookMessage, error)
-
-	DeleteMessage(id string) error
-
-	Token() string
-	ID() string
-	URL() string
+type WebhookUpdate struct {
+	Name   *string   `json:"name,omitempty"`
+	Avatar io.Reader `json:"avatar,omitempty"`
 }

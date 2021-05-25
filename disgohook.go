@@ -9,16 +9,14 @@ import (
 	"github.com/DisgoOrg/log"
 )
 
-const Version = ""
-
-func NewWebhookByToken(client *http.Client, logger log.Logger, webhookToken string) (api.Webhook, error) {
+func NewWebhookByToken(client *http.Client, logger log.Logger, webhookToken string) (api.WebhookClient, error) {
 	webhookTokenSplit := strings.SplitN(webhookToken, "/", 2)
 	if len(webhookTokenSplit) != 2 {
 		return nil, api.ErrMalformedWebhookToken
 	}
-	return internal.NewWebhookImpl(client, logger, webhookTokenSplit[0], webhookTokenSplit[1]), nil
+	return NewWebhookByIDToken(client, logger, api.Snowflake(webhookTokenSplit[0]), webhookTokenSplit[1])
 }
 
-func NewWebhookByIDToken(client *http.Client, logger log.Logger, webhookID string, webhookToken string) (api.Webhook, error) {
-	return internal.NewWebhookImpl(client, logger, webhookID, webhookToken), nil
+func NewWebhookByIDToken(client *http.Client, logger log.Logger, webhookID api.Snowflake, webhookToken string) (api.WebhookClient, error) {
+	return internal.NewWebhookClientImpl(client, logger, webhookID, webhookToken), nil
 }

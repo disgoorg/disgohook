@@ -10,7 +10,7 @@ import (
 type User struct {
 	ID            string  `json:"id"`
 	Discriminator string  `json:"discriminator"`
-	Bot           *bool   `json:"bot,omitempty"`
+	Bot           bool    `json:"bot"`
 	Username      string  `json:"username"`
 	Avatar        *string `json:"avatar"`
 }

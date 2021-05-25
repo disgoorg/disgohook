@@ -2,12 +2,13 @@ package api
 
 import "time"
 
+// WebhookMessage represents a message created by a Webhook
 type WebhookMessage struct {
-	Webhook         Webhook
-	ID              string               `json:"id"`
-	WebhookID       string               `json:"webhook_id"`
-	ChannelID       string               `json:"channel_id"`
-	GuildID         string               `json:"guild_id"`
+	Webhook         WebhookClient
+	ID              Snowflake            `json:"id"`
+	WebhookID       Snowflake            `json:"webhook_id"`
+	ChannelID       Snowflake            `json:"channel_id"`
+	GuildID         Snowflake            `json:"guild_id"`
 	TTS             bool                 `json:"tts"`
 	Author          *User                `json:"author"`
 	CreatedAt       time.Time            `json:"timestamp"`
@@ -22,12 +23,12 @@ type WebhookMessage struct {
 
 // Edit allows you to edit an existing WebhookMessage sent by you
 func (m *WebhookMessage) Edit(message *WebhookMessageUpdate) (*WebhookMessage, error) {
-	return m.Webhook.RestClient().UpdateWebhookMessage(m.Webhook.ID(), m.Webhook.Token(), m.ID, message)
+	return m.Webhook.EditMessage(m.ID, message)
 }
 
 // Delete allows you to delete an existing WebhookMessage sent by you
 func (m *WebhookMessage) Delete() error {
-	return m.Webhook.RestClient().DeleteWebhookMessage(m.Webhook.ID(), m.Webhook.Token(), m.ID)
+	return m.Webhook.DeleteMessage(m.ID)
 }
 
 //WebhookAttachment is used for files sent in a Message
