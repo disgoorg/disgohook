@@ -41,7 +41,7 @@ Documentation is unfinished and can be found under
 
 ## Examples
 
-You can find exampples under [example](https://github.com/DisgoOrg/disgohook/tree/master/example) and [DisLog](https://github.com/DisgoOrg/dislog)
+You can find examples under [example](https://github.com/DisgoOrg/disgohook/tree/master/example) and [DisLog](https://github.com/DisgoOrg/dislog)
 
 ## Troubleshooting
 
