@@ -11,7 +11,7 @@ func main() {
 	logger := logrus.New()
 	logger.SetLevel(logrus.DebugLevel)
 	logger.Info("starting example...")
-	webhook, err := disgohook.NewWebhookByToken(nil, logger, os.Getenv("webhook_token"))
+	webhook, err := disgohook.NewWebhookClientByToken(nil, logger, os.Getenv("webhook_token"))
 	if err != nil {
 		logger.Errorf("failed to create webhook: %s", err)
 		return

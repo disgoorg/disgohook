@@ -9,14 +9,14 @@ import (
 	"github.com/DisgoOrg/log"
 )
 
-func NewWebhookByToken(client *http.Client, logger log.Logger, webhookToken string) (api.WebhookClient, error) {
+func NewWebhookClientByToken(httpClient *http.Client, logger log.Logger, webhookToken string) (api.WebhookClient, error) {
 	webhookTokenSplit := strings.SplitN(webhookToken, "/", 2)
 	if len(webhookTokenSplit) != 2 {
 		return nil, api.ErrMalformedWebhookToken
 	}
-	return NewWebhookByIDToken(client, logger, api.Snowflake(webhookTokenSplit[0]), webhookTokenSplit[1])
+	return NewWebhookClientByIDToken(httpClient, logger, api.Snowflake(webhookTokenSplit[0]), webhookTokenSplit[1])
 }
 
-func NewWebhookByIDToken(client *http.Client, logger log.Logger, webhookID api.Snowflake, webhookToken string) (api.WebhookClient, error) {
-	return internal.NewWebhookClientImpl(client, logger, webhookID, webhookToken), nil
+func NewWebhookClientByIDToken(httpClient *http.Client, logger log.Logger, webhookID api.Snowflake, webhookToken string) (api.WebhookClient, error) {
+	return internal.NewWebhookClientImpl(httpClient, logger, webhookID, webhookToken), nil
 }
