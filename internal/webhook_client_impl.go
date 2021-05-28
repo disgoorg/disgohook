@@ -3,8 +3,8 @@ package internal
 import (
 	"net/http"
 
-	"github.com/DisgoOrg/disgohook/api/endpoints"
 	"github.com/DisgoOrg/log"
+	"github.com/DisgoOrg/restclient"
 
 	"github.com/DisgoOrg/disgohook/api"
 )
@@ -90,6 +90,6 @@ func (h *WebhookClientImpl) ID() api.Snowflake {
 	return h.id
 }
 func (h *WebhookClientImpl) URL() string {
-	compiledRoute, _ := endpoints.GetWebhook.Compile(nil, h.id, h.token)
+	compiledRoute, _ := restclient.GetWebhook.Compile(nil, h.id, h.token)
 	return compiledRoute.Route()
 }

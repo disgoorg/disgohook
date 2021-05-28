@@ -51,10 +51,10 @@ type WebhookMessageUpdate struct {
 
 // WebhookMessageCreate is the struct to create a new WebhookMessage
 type WebhookMessageCreate struct {
-	Content         *string          `json:"content,omitempty"`
-	Username        *string          `json:"username,omitempty"`
-	AvatarURL       *string          `json:"avatar_url,omitempty"`
-	TTS             *bool            `json:"tts,omitempty"`
+	Content         string           `json:"content,omitempty"`
+	Username        string           `json:"username,omitempty"`
+	AvatarURL       string           `json:"avatar_url,omitempty"`
+	TTS             bool             `json:"tts,omitempty"`
 	Embeds          []*Embed         `json:"embeds,omitempty"`
 	AllowedMentions *AllowedMentions `json:"allowed_mentions,omitempty"`
 }

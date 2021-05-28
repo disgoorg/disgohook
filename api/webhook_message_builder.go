@@ -26,20 +26,19 @@ func NewWebhookMessageBuilderWithContent(content string) *WebhookMessageBuilder 
 
 // SetContent sets content of the WebhookMessage
 func (b *WebhookMessageBuilder) SetContent(content string) *WebhookMessageBuilder {
-	b.Content = &content
+	b.Content = content
 	return b
 }
 
 // SetContentf sets content of the WebhookMessage
 func (b *WebhookMessageBuilder) SetContentf(content string, a ...interface{}) *WebhookMessageBuilder {
-	contentf := fmt.Sprintf(content, a...)
-	b.Content = &contentf
+	b.Content = fmt.Sprintf(content, a...)
 	return b
 }
 
 // SetTTS sets the text to speech of the WebhookMessage
 func (b *WebhookMessageBuilder) SetTTS(tts bool) *WebhookMessageBuilder {
-	b.TTS = &tts
+	b.TTS = tts
 	return b
 }
 

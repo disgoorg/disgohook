@@ -3,7 +3,7 @@ package api
 import (
 	"errors"
 
-	"github.com/DisgoOrg/disgohook/api/endpoints"
+	"github.com/DisgoOrg/restclient"
 )
 
 // Errors when connecting to discord
@@ -21,8 +21,8 @@ type ErrorResponse struct {
 }
 
 type RestClient interface {
-	UserAgent() string
-	Request(route *endpoints.CompiledAPIRoute, rqBody interface{}, rsBody interface{}) error
+	restclient.RestClient
+	WebhookClient() WebhookClient
 
 	GetWebhook(webhookID Snowflake, webhookToken string) (*Webhook, error)
 	UpdateWebhook(webhookID Snowflake, webhookToken string, webhookUpdate *WebhookUpdate) (*Webhook, error)
