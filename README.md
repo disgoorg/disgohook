@@ -30,6 +30,8 @@ Create a new Webhook by `webhook_id/webhook_token` and pass a [logger](https://g
 ```go
 logger := logrus.New()
 webhook, err := disgohook.NewWebhookByToken(nil, logger, "webhook_id/webhook_token")
+
+message, err := webhook.SendContent("hello world!")
 ```
 
 ## Documentation
