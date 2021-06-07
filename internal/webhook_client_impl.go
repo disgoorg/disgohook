@@ -47,7 +47,7 @@ func (h *WebhookClientImpl) GetWebhook() (*api.Webhook, error) {
 	return h.RestClient().GetWebhook(h.id, h.token)
 }
 
-func (h *WebhookClientImpl) EditWebhook(webhookUpdate *api.WebhookUpdate) (*api.Webhook, error) {
+func (h *WebhookClientImpl) EditWebhook(webhookUpdate api.WebhookUpdate) (*api.Webhook, error) {
 	return h.RestClient().UpdateWebhook(h.id, h.token, webhookUpdate)
 }
 
@@ -55,28 +55,28 @@ func (h *WebhookClientImpl) DeleteWebhook() error {
 	return h.RestClient().DeleteWebhook(h.id, h.token)
 }
 
-func (h *WebhookClientImpl) SendMessage(message *api.WebhookMessageCreate) (*api.WebhookMessage, error) {
+func (h *WebhookClientImpl) SendMessage(message api.WebhookMessageCreate) (*api.WebhookMessage, error) {
 	return h.RestClient().CreateWebhookMessage(h.id, h.token, message, true, "")
 }
 
 func (h *WebhookClientImpl) SendContent(content string) (*api.WebhookMessage, error) {
-	return h.SendMessage(api.NewWebhookMessageBuilderWithContent(content).Build())
+	return h.SendMessage(api.NewWebhookMessageCreateBuilder().SetContent(content).Build())
 }
 
-func (h *WebhookClientImpl) SendEmbed(embed *api.Embed, embeds ...*api.Embed) (*api.WebhookMessage, error) {
-	return h.SendMessage(api.NewWebhookMessageBuilderWithEmbeds(embed, embeds...).Build())
+func (h *WebhookClientImpl) SendEmbed(embeds ...api.Embed) (*api.WebhookMessage, error) {
+	return h.SendMessage(api.NewWebhookMessageCreateBuilder().SetEmbeds(embeds...).Build())
 }
 
-func (h *WebhookClientImpl) EditMessage(messageID api.Snowflake, message *api.WebhookMessageUpdate) (*api.WebhookMessage, error) {
+func (h *WebhookClientImpl) EditMessage(messageID api.Snowflake, message api.WebhookMessageUpdate) (*api.WebhookMessage, error) {
 	return h.RestClient().UpdateWebhookMessage(h.id, h.token, messageID, message)
 }
 
 func (h *WebhookClientImpl) EditContent(messageID api.Snowflake, content string) (*api.WebhookMessage, error) {
-	return h.EditMessage(messageID, &api.WebhookMessageUpdate{Content: &content})
+	return h.EditMessage(messageID, api.NewWebhookMessageUpdateBuilder().SetContent(content).Build())
 }
 
-func (h *WebhookClientImpl) EditEmbed(messageID api.Snowflake, embed *api.Embed, embeds ...*api.Embed) (*api.WebhookMessage, error) {
-	return h.EditMessage(messageID, &api.WebhookMessageUpdate{Embeds: append([]*api.Embed{embed}, embeds...)})
+func (h *WebhookClientImpl) EditEmbed(messageID api.Snowflake, embeds ...api.Embed) (*api.WebhookMessage, error) {
+	return h.EditMessage(messageID, api.NewWebhookMessageUpdateBuilder().SetEmbeds(embeds...).Build())
 }
 
 func (h *WebhookClientImpl) DeleteMessage(messageID api.Snowflake) error {

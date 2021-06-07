@@ -18,16 +18,16 @@ type WebhookClient interface {
 	SetDefaultAllowedMentions(allowedMentions *AllowedMentions)
 
 	GetWebhook() (*Webhook, error)
-	EditWebhook(webhookUpdate *WebhookUpdate) (*Webhook, error)
+	EditWebhook(webhookUpdate WebhookUpdate) (*Webhook, error)
 	DeleteWebhook() error
 
-	SendMessage(message *WebhookMessageCreate) (*WebhookMessage, error)
+	SendMessage(message WebhookMessageCreate) (*WebhookMessage, error)
 	SendContent(content string) (*WebhookMessage, error)
-	SendEmbed(embed *Embed, embeds ...*Embed) (*WebhookMessage, error)
+	SendEmbed(embeds ...Embed) (*WebhookMessage, error)
 
-	EditMessage(messageID Snowflake, message *WebhookMessageUpdate) (*WebhookMessage, error)
+	EditMessage(messageID Snowflake, message WebhookMessageUpdate) (*WebhookMessage, error)
 	EditContent(messageID Snowflake, content string) (*WebhookMessage, error)
-	EditEmbed(messageID Snowflake, embed *Embed, embeds ...*Embed) (*WebhookMessage, error)
+	EditEmbed(messageID Snowflake, embeds ...Embed) (*WebhookMessage, error)
 
 	DeleteMessage(id Snowflake) error
 

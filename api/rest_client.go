@@ -25,10 +25,10 @@ type RestClient interface {
 	WebhookClient() WebhookClient
 
 	GetWebhook(webhookID Snowflake, webhookToken string) (*Webhook, error)
-	UpdateWebhook(webhookID Snowflake, webhookToken string, webhookUpdate *WebhookUpdate) (*Webhook, error)
+	UpdateWebhook(webhookID Snowflake, webhookToken string, webhookUpdate WebhookUpdate) (*Webhook, error)
 	DeleteWebhook(webhookID Snowflake, webhookToken string) error
 
-	CreateWebhookMessage(webhookID Snowflake, webhookToken string, message *WebhookMessageCreate, wait bool, threadID Snowflake) (*WebhookMessage, error)
-	UpdateWebhookMessage(webhookID Snowflake, webhookToken string, messageID Snowflake, message *WebhookMessageUpdate) (*WebhookMessage, error)
+	CreateWebhookMessage(webhookID Snowflake, webhookToken string, messageCreate WebhookMessageCreate, wait bool, threadID Snowflake) (*WebhookMessage, error)
+	UpdateWebhookMessage(webhookID Snowflake, webhookToken string, messageID Snowflake, messageUpdate WebhookMessageUpdate) (*WebhookMessage, error)
 	DeleteWebhookMessage(webhookID Snowflake, webhookToken string, messageID Snowflake) error
 }

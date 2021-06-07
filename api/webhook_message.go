@@ -14,15 +14,15 @@ type WebhookMessage struct {
 	CreatedAt       time.Time            `json:"timestamp"`
 	EditedAt        *time.Time           `json:"edited_timestamp"`
 	Content         *string              `json:"content,omitempty"`
-	Embeds          []*Embed             `json:"embeds,omitempty"`
-	Attachments     []*WebhookAttachment `json:"attachments,omitempty"`
+	Embeds          []Embed             `json:"embeds,omitempty"`
+	Attachments     []WebhookAttachment `json:"attachments,omitempty"`
 	Mentions        []interface{}        `json:"mentions"`
 	MentionEveryone bool                 `json:"mention_everyone"`
 	MentionRoles    []string             `json:"mention_roles"`
 }
 
 // Edit allows you to edit an existing WebhookMessage sent by you
-func (m *WebhookMessage) Edit(message *WebhookMessageUpdate) (*WebhookMessage, error) {
+func (m *WebhookMessage) Edit(message WebhookMessageUpdate) (*WebhookMessage, error) {
 	return m.Webhook.EditMessage(m.ID, message)
 }
 
@@ -40,21 +40,4 @@ type WebhookAttachment struct {
 	ProxyURL string `json:"proxy_url"`
 	Height   *int   `json:"height"`
 	Width    *int   `json:"width"`
-}
-
-// WebhookMessageUpdate is used to edit a Message
-type WebhookMessageUpdate struct {
-	Content         *string          `json:"content,omitempty"`
-	Embeds          []*Embed         `json:"embeds,omitempty"`
-	AllowedMentions *AllowedMentions `json:"allowed_mentions,omitempty"`
-}
-
-// WebhookMessageCreate is the struct to create a new WebhookMessage
-type WebhookMessageCreate struct {
-	Content         string           `json:"content,omitempty"`
-	Username        string           `json:"username,omitempty"`
-	AvatarURL       string           `json:"avatar_url,omitempty"`
-	TTS             bool             `json:"tts,omitempty"`
-	Embeds          []*Embed         `json:"embeds,omitempty"`
-	AllowedMentions *AllowedMentions `json:"allowed_mentions,omitempty"`
 }

@@ -34,7 +34,7 @@ func (r *RestClientImpl) GetWebhook(webhookID api.Snowflake, webhookToken string
 	return
 }
 
-func (r *RestClientImpl) UpdateWebhook(webhookID api.Snowflake, webhookToken string, webhookUpdate *api.WebhookUpdate) (webhook *api.Webhook, err error) {
+func (r *RestClientImpl) UpdateWebhook(webhookID api.Snowflake, webhookToken string, webhookUpdate api.WebhookUpdate) (webhook *api.Webhook, err error) {
 	var compiledRoute *restclient.CompiledAPIRoute
 	compiledRoute, err = restclient.UpdateWebhook.Compile(nil, webhookID, webhookToken)
 	if err != nil {
@@ -54,7 +54,7 @@ func (r *RestClientImpl) DeleteWebhook(webhookID api.Snowflake, webhookToken str
 	return
 }
 
-func (r *RestClientImpl) CreateWebhookMessage(webhookID api.Snowflake, webhookToken string, messageCreate *api.WebhookMessageCreate, wait bool, threadID api.Snowflake) (message *api.WebhookMessage, err error) {
+func (r *RestClientImpl) CreateWebhookMessage(webhookID api.Snowflake, webhookToken string, messageCreate api.WebhookMessageCreate, wait bool, threadID api.Snowflake) (message *api.WebhookMessage, err error) {
 	params := map[string]interface{}{}
 	if wait {
 		params["wait"] = true
@@ -78,7 +78,7 @@ func (r *RestClientImpl) CreateWebhookMessage(webhookID api.Snowflake, webhookTo
 	return
 }
 
-func (r *RestClientImpl) UpdateWebhookMessage(webhookID api.Snowflake, webhookToken string, messageID api.Snowflake, messageUpdate *api.WebhookMessageUpdate) (message *api.WebhookMessage, err error) {
+func (r *RestClientImpl) UpdateWebhookMessage(webhookID api.Snowflake, webhookToken string, messageID api.Snowflake, messageUpdate api.WebhookMessageUpdate) (message *api.WebhookMessage, err error) {
 	var compiledRoute *restclient.CompiledAPIRoute
 	compiledRoute, err = restclient.UpdateWebhookMessage.Compile(nil, webhookID, webhookToken, messageID)
 	if err != nil {
