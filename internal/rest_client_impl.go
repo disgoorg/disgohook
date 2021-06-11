@@ -67,13 +67,20 @@ func (r *RestClientImpl) CreateWebhookMessage(webhookID api.Snowflake, webhookTo
 	if err != nil {
 		return
 	}
-	if wait {
-		err = r.Do(compiledRoute, messageCreate, &message)
-	} else {
-		err = r.Do(compiledRoute, messageCreate, nil)
+
+	body, err := messageCreate.ToBody()
+	if err != nil {
+		return nil, err
 	}
-	if message != nil {
-		message.Webhook = r.webhookClient
+
+	var fullMessage *api.FullWebhookMessage
+	if wait {
+		err = r.Do(compiledRoute, body, &fullMessage)
+	} else {
+		err = r.Do(compiledRoute, body, nil)
+	}
+	if fullMessage != nil {
+		message = r.createMessage(fullMessage)
 	}
 	return
 }
@@ -84,9 +91,16 @@ func (r *RestClientImpl) UpdateWebhookMessage(webhookID api.Snowflake, webhookTo
 	if err != nil {
 		return
 	}
-	err = r.Do(compiledRoute, messageUpdate, &message)
-	if message != nil {
-		message.Webhook = r.webhookClient
+
+	body, err := messageUpdate.ToBody()
+	if err != nil {
+		return nil, err
+	}
+
+	var fullMessage *api.FullWebhookMessage
+	err = r.Do(compiledRoute, body, &fullMessage)
+	if fullMessage != nil {
+		message = r.createMessage(fullMessage)
 	}
 	return
 }
@@ -99,4 +113,50 @@ func (r *RestClientImpl) DeleteWebhookMessage(webhookID api.Snowflake, webhookTo
 	}
 	err = r.Do(compiledRoute, nil, nil)
 	return
+}
+
+func (r *RestClientImpl) createComponent(unmarshalComponent api.UnmarshalComponent) api.Component {
+	switch unmarshalComponent.ComponentType {
+	case api.ComponentTypeActionRow:
+		components := make([]api.Component, len(unmarshalComponent.Components))
+		for i, unmarshalC := range unmarshalComponent.Components {
+			components[i] = r.createComponent(unmarshalC)
+		}
+		return &api.ActionRow{
+			ComponentImpl: api.ComponentImpl{
+				ComponentType: api.ComponentTypeActionRow,
+			},
+			Components: components,
+		}
+
+	case api.ComponentTypeButton:
+		button := &api.Button{
+			ComponentImpl: api.ComponentImpl{
+				ComponentType: api.ComponentTypeButton,
+			},
+			Style:    unmarshalComponent.Style,
+			Label:    unmarshalComponent.Label,
+			CustomID: unmarshalComponent.CustomID,
+			URL:      unmarshalComponent.URL,
+			Disabled: unmarshalComponent.Disabled,
+			Emoji:    unmarshalComponent.Emoji,
+		}
+		return button
+
+	default:
+		r.Logger().Errorf("unexpected component type %d received", unmarshalComponent.ComponentType)
+		return nil
+	}
+}
+
+func (r *RestClientImpl) createMessage(fullMessage *api.FullWebhookMessage) *api.WebhookMessage {
+	message := fullMessage.WebhookMessage
+	message.Webhook = r.webhookClient
+	if fullMessage.UnmarshalComponents != nil {
+		for _, component := range fullMessage.UnmarshalComponents {
+			message.Components = append(message.Components, r.createComponent(component))
+		}
+	}
+
+	return message
 }

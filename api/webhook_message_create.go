@@ -1,15 +1,27 @@
 package api
 
-import "fmt"
+import (
+	"fmt"
+	"github.com/DisgoOrg/restclient"
+	"io"
+)
 
 // WebhookMessageCreate is used to add additional messages to an Interaction after you've responded initially
 type WebhookMessageCreate struct {
-	TTS             bool             `json:"tts,omitempty"`
-	Content         string           `json:"content,omitempty"`
-	Embeds          []Embed          `json:"embeds,omitempty"`
-	Components      []Component      `json:"components,omitempty"`
-	AllowedMentions *AllowedMentions `json:"allowed_mentions,omitempty"`
-	Flags           MessageFlags     `json:"flags,omitempty"`
+	Content         string            `json:"content,omitempty"`
+	TTS             bool              `json:"tts,omitempty"`
+	Embeds          []Embed           `json:"embeds,omitempty"`
+	Components      []Component       `json:"components,omitempty"`
+	Files           []restclient.File `json:"-"`
+	AllowedMentions *AllowedMentions  `json:"allowed_mentions,omitempty"`
+	Flags           MessageFlags      `json:"flags,omitempty"`
+}
+
+func (m WebhookMessageCreate) ToBody() (interface{}, error) {
+	if len(m.Files) > 0 {
+		return restclient.PayloadWithFiles(m, m.Files...)
+	}
+	return m, nil
 }
 
 // WebhookMessageCreateBuilder allows you to create an WebhookMessageCreate with ease
@@ -79,6 +91,37 @@ func (b *WebhookMessageCreateBuilder) SetComponents(components ...Component) *We
 // AddComponents adds the Component(s) to the WebhookMessageCreate
 func (b *WebhookMessageCreateBuilder) AddComponents(components ...Component) *WebhookMessageCreateBuilder {
 	b.Components = append(b.Components, components...)
+	return b
+}
+
+func (b *WebhookMessageCreateBuilder) SetFiles(files ...restclient.File) *WebhookMessageCreateBuilder {
+	b.Files = files
+	return b
+}
+
+func (b *WebhookMessageCreateBuilder) AddFiles(files ...restclient.File) *WebhookMessageCreateBuilder {
+	b.Files = append(b.Files, files...)
+	return b
+}
+
+func (b *WebhookMessageCreateBuilder) AddFile(name string, reader io.Reader, flags ...restclient.FileFlags) *WebhookMessageCreateBuilder {
+	b.Files = append(b.Files, restclient.File{
+		Name:   name,
+		Reader: reader,
+		Flags:  restclient.FileFlagNone.Add(flags...),
+	})
+	return b
+}
+
+func (b *WebhookMessageCreateBuilder) ClearFiles() *WebhookMessageCreateBuilder {
+	b.Files = []restclient.File{}
+	return b
+}
+
+func (b *WebhookMessageCreateBuilder) RemoveFiles(i int) *WebhookMessageCreateBuilder {
+	if len(b.Files) > i {
+		b.Files = append(b.Files[:i], b.Files[i+1:]...)
+	}
 	return b
 }
 
