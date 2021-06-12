@@ -9,10 +9,11 @@ import (
 	"github.com/DisgoOrg/disgohook/api"
 )
 
-var _ api.WebhookClient = (*WebhookClientImpl)(nil)
+var _ api.WebhookClient = (*webhookClientImpl)(nil)
 
+// NewWebhookClientImpl returns a new api.WebhookClient
 func NewWebhookClientImpl(client *http.Client, logger log.Logger, id api.Snowflake, token string) api.WebhookClient {
-	webhook := &WebhookClientImpl{
+	webhook := &webhookClientImpl{
 		logger:                 logger,
 		defaultAllowedMentions: &api.DefaultAllowedMentions,
 		id:                     id,
@@ -22,7 +23,7 @@ func NewWebhookClientImpl(client *http.Client, logger log.Logger, id api.Snowfla
 	return webhook
 }
 
-type WebhookClientImpl struct {
+type webhookClientImpl struct {
 	restClient             api.RestClient
 	logger                 log.Logger
 	defaultAllowedMentions *api.AllowedMentions
@@ -30,66 +31,66 @@ type WebhookClientImpl struct {
 	token                  string
 }
 
-func (h *WebhookClientImpl) RestClient() api.RestClient {
+func (h *webhookClientImpl) RestClient() api.RestClient {
 	return h.restClient
 }
-func (h *WebhookClientImpl) Logger() log.Logger {
+func (h *webhookClientImpl) Logger() log.Logger {
 	return h.logger
 }
-func (h *WebhookClientImpl) DefaultAllowedMentions() *api.AllowedMentions {
+func (h *webhookClientImpl) DefaultAllowedMentions() *api.AllowedMentions {
 	return h.defaultAllowedMentions
 }
-func (h *WebhookClientImpl) SetDefaultAllowedMentions(allowedMentions *api.AllowedMentions) {
+func (h *webhookClientImpl) SetDefaultAllowedMentions(allowedMentions *api.AllowedMentions) {
 	h.defaultAllowedMentions = allowedMentions
 }
 
-func (h *WebhookClientImpl) GetWebhook() (*api.Webhook, error) {
+func (h *webhookClientImpl) GetWebhook() (*api.Webhook, error) {
 	return h.RestClient().GetWebhook(h.id, h.token)
 }
 
-func (h *WebhookClientImpl) EditWebhook(webhookUpdate api.WebhookUpdate) (*api.Webhook, error) {
+func (h *webhookClientImpl) EditWebhook(webhookUpdate api.WebhookUpdate) (*api.Webhook, error) {
 	return h.RestClient().UpdateWebhook(h.id, h.token, webhookUpdate)
 }
 
-func (h *WebhookClientImpl) DeleteWebhook() error {
+func (h *webhookClientImpl) DeleteWebhook() error {
 	return h.RestClient().DeleteWebhook(h.id, h.token)
 }
 
-func (h *WebhookClientImpl) SendMessage(message api.WebhookMessageCreate) (*api.WebhookMessage, error) {
+func (h *webhookClientImpl) SendMessage(message api.WebhookMessageCreate) (*api.WebhookMessage, error) {
 	return h.RestClient().CreateWebhookMessage(h.id, h.token, message, true, "")
 }
 
-func (h *WebhookClientImpl) SendContent(content string) (*api.WebhookMessage, error) {
+func (h *webhookClientImpl) SendContent(content string) (*api.WebhookMessage, error) {
 	return h.SendMessage(api.NewWebhookMessageCreateBuilder().SetContent(content).Build())
 }
 
-func (h *WebhookClientImpl) SendEmbed(embeds ...api.Embed) (*api.WebhookMessage, error) {
+func (h *webhookClientImpl) SendEmbed(embeds ...api.Embed) (*api.WebhookMessage, error) {
 	return h.SendMessage(api.NewWebhookMessageCreateBuilder().SetEmbeds(embeds...).Build())
 }
 
-func (h *WebhookClientImpl) EditMessage(messageID api.Snowflake, message api.WebhookMessageUpdate) (*api.WebhookMessage, error) {
+func (h *webhookClientImpl) EditMessage(messageID api.Snowflake, message api.WebhookMessageUpdate) (*api.WebhookMessage, error) {
 	return h.RestClient().UpdateWebhookMessage(h.id, h.token, messageID, message)
 }
 
-func (h *WebhookClientImpl) EditContent(messageID api.Snowflake, content string) (*api.WebhookMessage, error) {
+func (h *webhookClientImpl) EditContent(messageID api.Snowflake, content string) (*api.WebhookMessage, error) {
 	return h.EditMessage(messageID, api.NewWebhookMessageUpdateBuilder().SetContent(content).Build())
 }
 
-func (h *WebhookClientImpl) EditEmbed(messageID api.Snowflake, embeds ...api.Embed) (*api.WebhookMessage, error) {
+func (h *webhookClientImpl) EditEmbed(messageID api.Snowflake, embeds ...api.Embed) (*api.WebhookMessage, error) {
 	return h.EditMessage(messageID, api.NewWebhookMessageUpdateBuilder().SetEmbeds(embeds...).Build())
 }
 
-func (h *WebhookClientImpl) DeleteMessage(messageID api.Snowflake) error {
+func (h *webhookClientImpl) DeleteMessage(messageID api.Snowflake) error {
 	return h.RestClient().DeleteWebhookMessage(h.id, h.token, messageID)
 }
 
-func (h *WebhookClientImpl) Token() string {
+func (h *webhookClientImpl) Token() string {
 	return h.token
 }
-func (h *WebhookClientImpl) ID() api.Snowflake {
+func (h *webhookClientImpl) ID() api.Snowflake {
 	return h.id
 }
-func (h *WebhookClientImpl) URL() string {
+func (h *webhookClientImpl) URL() string {
 	compiledRoute, _ := restclient.GetWebhook.Compile(nil, h.id, h.token)
 	return compiledRoute.Route()
 }
