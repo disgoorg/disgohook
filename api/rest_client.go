@@ -20,6 +20,7 @@ type ErrorResponse struct {
 	Message string
 }
 
+// RestClient is a manager for all of disgohook's HTTP requests
 type RestClient interface {
 	restclient.RestClient
 	WebhookClient() WebhookClient

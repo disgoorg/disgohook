@@ -11,6 +11,7 @@ import (
 
 var _ api.WebhookClient = (*webhookClientImpl)(nil)
 
+// NewWebhookClientImpl returns a new api.WebhookClient
 func NewWebhookClientImpl(client *http.Client, logger log.Logger, id api.Snowflake, token string) api.WebhookClient {
 	webhook := &webhookClientImpl{
 		logger:                 logger,

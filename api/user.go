@@ -7,6 +7,7 @@ import (
 	"github.com/DisgoOrg/restclient"
 )
 
+// User represents a Discord User
 type User struct {
 	ID            string  `json:"id"`
 	Discriminator string  `json:"discriminator"`

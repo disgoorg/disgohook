@@ -17,6 +17,7 @@ type WebhookMessageCreate struct {
 	Flags           MessageFlags      `json:"flags,omitempty"`
 }
 
+// ToBody returns the WebhookMessageCreate ready for body
 func (m WebhookMessageCreate) ToBody() (interface{}, error) {
 	if len(m.Files) > 0 {
 		return restclient.PayloadWithFiles(m, m.Files...)
@@ -94,16 +95,19 @@ func (b *WebhookMessageCreateBuilder) AddComponents(components ...Component) *We
 	return b
 }
 
+// SetFiles sets the files for this WebhookMessageCreate
 func (b *WebhookMessageCreateBuilder) SetFiles(files ...restclient.File) *WebhookMessageCreateBuilder {
 	b.Files = files
 	return b
 }
 
+// AddFiles adds the files to the WebhookMessageCreate
 func (b *WebhookMessageCreateBuilder) AddFiles(files ...restclient.File) *WebhookMessageCreateBuilder {
 	b.Files = append(b.Files, files...)
 	return b
 }
 
+// AddFile adds a file to the WebhookMessageCreate
 func (b *WebhookMessageCreateBuilder) AddFile(name string, reader io.Reader, flags ...restclient.FileFlags) *WebhookMessageCreateBuilder {
 	b.Files = append(b.Files, restclient.File{
 		Name:   name,
@@ -113,11 +117,13 @@ func (b *WebhookMessageCreateBuilder) AddFile(name string, reader io.Reader, fla
 	return b
 }
 
+// ClearFiles removes all files of this WebhookMessageCreate
 func (b *WebhookMessageCreateBuilder) ClearFiles() *WebhookMessageCreateBuilder {
 	b.Files = []restclient.File{}
 	return b
 }
 
+// RemoveFiles removes the file at this index
 func (b *WebhookMessageCreateBuilder) RemoveFiles(i int) *WebhookMessageCreateBuilder {
 	if len(b.Files) > i {
 		b.Files = append(b.Files[:i], b.Files[i+1:]...)
