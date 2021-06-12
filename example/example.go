@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/DisgoOrg/disgohook/api"
 	"os"
 
 	"github.com/DisgoOrg/disgohook"
@@ -16,7 +17,12 @@ func main() {
 		logger.Errorf("failed to create webhook: %s", err)
 		return
 	}
-	_, err = webhook.SendContent("example message")
+	reader, _ := os.Open("gopher.png")
+	_, err = webhook.SendMessage(api.NewWebhookMessageCreateBuilder().
+		SetContent("example message").
+		AddFile("gopher.png", reader).
+		Build(),
+	)
 	if err != nil {
 		logger.Errorf("failed to send webhook message: %s", err)
 		return
