@@ -2,6 +2,7 @@ package api
 
 import (
 	"errors"
+	"github.com/DisgoOrg/restclient"
 	"regexp"
 
 	"github.com/DisgoOrg/log"
@@ -20,19 +21,19 @@ type WebhookClient interface {
 	DefaultAllowedMentions() *AllowedMentions
 	SetDefaultAllowedMentions(allowedMentions *AllowedMentions)
 
-	GetWebhook() (*Webhook, error)
-	EditWebhook(webhookUpdate WebhookUpdate) (*Webhook, error)
-	DeleteWebhook() error
+	GetWebhook() (*Webhook, restclient.RestError)
+	EditWebhook(webhookUpdate WebhookUpdate) (*Webhook, restclient.RestError)
+	DeleteWebhook() restclient.RestError
 
-	SendMessage(message WebhookMessageCreate) (*WebhookMessage, error)
-	SendContent(content string) (*WebhookMessage, error)
-	SendEmbed(embeds ...Embed) (*WebhookMessage, error)
+	SendMessage(message WebhookMessageCreate) (*WebhookMessage, restclient.RestError)
+	SendContent(content string) (*WebhookMessage, restclient.RestError)
+	SendEmbed(embeds ...Embed) (*WebhookMessage, restclient.RestError)
 
-	EditMessage(messageID Snowflake, message WebhookMessageUpdate) (*WebhookMessage, error)
-	EditContent(messageID Snowflake, content string) (*WebhookMessage, error)
-	EditEmbed(messageID Snowflake, embeds ...Embed) (*WebhookMessage, error)
+	EditMessage(messageID Snowflake, message WebhookMessageUpdate) (*WebhookMessage, restclient.RestError)
+	EditContent(messageID Snowflake, content string) (*WebhookMessage, restclient.RestError)
+	EditEmbed(messageID Snowflake, embeds ...Embed) (*WebhookMessage, restclient.RestError)
 
-	DeleteMessage(id Snowflake) error
+	DeleteMessage(id Snowflake) restclient.RestError
 
 	Token() string
 	ID() Snowflake

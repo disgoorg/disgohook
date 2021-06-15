@@ -7,7 +7,8 @@
 [![Disgo Version](https://img.shields.io/github/v/release/DisgoOrg/disgohook)](https://github.com/DisgoOrg/disgohook/releases/latest)
 [![Disgo Discord](https://img.shields.io/badge/Disgo%20Discord-blue.svg)](https://discord.gg/mgjJeufk)
 
-DisgoHook is a simple [Discord Webhook](https://discord.com/developers/docs/resources/webhook) library written in [Go](https://golang.org/) aimed for simplicity and easy use
+DisgoHook is a simple [Discord Webhook](https://discord.com/developers/docs/resources/webhook) library written
+in [Go](https://golang.org/) aimed for simplicity and easy use
 
 ## Getting Started
 
@@ -25,7 +26,8 @@ Import the package into your project.
 import "github.com/DisgoOrg/disgohook"
 ```
 
-Create a new Webhook by `webhook_id/webhook_token` and pass a [logger](https://github.com/DisgoOrg/log) like [logrus](https://github.com/sirupsen/logrus). This webhook then can be used to send/edit/delete messages
+Create a new Webhook by `webhook_id/webhook_token` and pass a [logger](https://github.com/DisgoOrg/log)
+like [logrus](https://github.com/sirupsen/logrus). This webhook then can be used to send/edit/delete messages
 
 ```go
 logger := logrus.New()
@@ -43,7 +45,8 @@ Documentation is unfinished and can be found under
 
 ## Examples
 
-You can find examples under [example](https://github.com/DisgoOrg/disgohook/tree/master/example) and [DisLog](https://github.com/DisgoOrg/dislog)
+You can find examples under [example](https://github.com/DisgoOrg/disgohook/tree/master/example)
+and [DisLog](https://github.com/DisgoOrg/dislog)
 
 ## Troubleshooting
 
@@ -51,8 +54,11 @@ For help feel free to open an issues or reach out on [Discord](https://discord.g
 
 ## Contributing
 
-Contributions are welcomed but for bigger changes please first reach out via [Discord](https://discord.gg/mgjJeufk) or create an issue to discuss your intetions and ideas.
+Contributions are welcomed but for bigger changes please first reach out via [Discord](https://discord.gg/mgjJeufk) or
+create an issue to discuss your intetions and ideas.
 
 ## License
 
-Distributed under the [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/DisgoOrg/disgohook/blob/master/LICENSE). See LICENSE for more information.
+Distributed under
+the [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/DisgoOrg/disgohook/blob/master/LICENSE)
+. See LICENSE for more information.
