@@ -25,7 +25,7 @@ func (r *restClientImpl) WebhookClient() api.WebhookClient {
 }
 
 func (r *restClientImpl) GetWebhook(webhookID api.Snowflake, webhookToken string) (webhook *api.Webhook, rErr restclient.RestError) {
-	compiledRoute, err := restclient.GetWebhook.Compile(nil, webhookID, webhookToken)
+	compiledRoute, err := restclient.GetWebhookWithToken.Compile(nil, webhookID, webhookToken)
 	if err != nil {
 		rErr = restclient.NewError(nil, err)
 		return
@@ -35,7 +35,7 @@ func (r *restClientImpl) GetWebhook(webhookID api.Snowflake, webhookToken string
 }
 
 func (r *restClientImpl) UpdateWebhook(webhookID api.Snowflake, webhookToken string, webhookUpdate api.WebhookUpdate) (webhook *api.Webhook, rErr restclient.RestError) {
-	compiledRoute, err := restclient.UpdateWebhook.Compile(nil, webhookID, webhookToken)
+	compiledRoute, err := restclient.UpdateWebhookWithToken.Compile(nil, webhookID, webhookToken)
 	if err != nil {
 		rErr = restclient.NewError(nil, err)
 		return
@@ -45,7 +45,7 @@ func (r *restClientImpl) UpdateWebhook(webhookID api.Snowflake, webhookToken str
 }
 
 func (r *restClientImpl) DeleteWebhook(webhookID api.Snowflake, webhookToken string) (rErr restclient.RestError) {
-	compiledRoute, err := restclient.DeleteWebhook.Compile(nil, webhookID, webhookToken)
+	compiledRoute, err := restclient.DeleteWebhookWithToken.Compile(nil, webhookID, webhookToken)
 	if err != nil {
 		rErr = restclient.NewError(nil, err)
 		return
