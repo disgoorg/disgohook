@@ -64,7 +64,7 @@ func (h *webhookClientImpl) SendContent(content string) (*api.WebhookMessage, re
 	return h.SendMessage(api.NewWebhookMessageCreateBuilder().SetContent(content).Build())
 }
 
-func (h *webhookClientImpl) SendEmbed(embeds ...api.Embed) (*api.WebhookMessage, restclient.RestError) {
+func (h *webhookClientImpl) SendEmbeds(embeds ...api.Embed) (*api.WebhookMessage, restclient.RestError) {
 	return h.SendMessage(api.NewWebhookMessageCreateBuilder().SetEmbeds(embeds...).Build())
 }
 
@@ -76,7 +76,7 @@ func (h *webhookClientImpl) EditContent(messageID api.Snowflake, content string)
 	return h.EditMessage(messageID, api.NewWebhookMessageUpdateBuilder().SetContent(content).Build())
 }
 
-func (h *webhookClientImpl) EditEmbed(messageID api.Snowflake, embeds ...api.Embed) (*api.WebhookMessage, restclient.RestError) {
+func (h *webhookClientImpl) EditEmbeds(messageID api.Snowflake, embeds ...api.Embed) (*api.WebhookMessage, restclient.RestError) {
 	return h.EditMessage(messageID, api.NewWebhookMessageUpdateBuilder().SetEmbeds(embeds...).Build())
 }
 

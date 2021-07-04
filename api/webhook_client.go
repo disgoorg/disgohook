@@ -27,11 +27,11 @@ type WebhookClient interface {
 
 	SendMessage(message WebhookMessageCreate) (*WebhookMessage, restclient.RestError)
 	SendContent(content string) (*WebhookMessage, restclient.RestError)
-	SendEmbed(embeds ...Embed) (*WebhookMessage, restclient.RestError)
+	SendEmbeds(embeds ...Embed) (*WebhookMessage, restclient.RestError)
 
 	EditMessage(messageID Snowflake, message WebhookMessageUpdate) (*WebhookMessage, restclient.RestError)
 	EditContent(messageID Snowflake, content string) (*WebhookMessage, restclient.RestError)
-	EditEmbed(messageID Snowflake, embeds ...Embed) (*WebhookMessage, restclient.RestError)
+	EditEmbeds(messageID Snowflake, embeds ...Embed) (*WebhookMessage, restclient.RestError)
 
 	DeleteMessage(id Snowflake) restclient.RestError
 

@@ -74,14 +74,13 @@ func (r *restClientImpl) CreateWebhookMessage(webhookID api.Snowflake, webhookTo
 		return
 	}
 
-	var fullMessage *api.FullWebhookMessage
 	if wait {
-		rErr = r.Do(compiledRoute, body, &fullMessage)
+		rErr = r.Do(compiledRoute, body, &message)
 	} else {
 		rErr = r.Do(compiledRoute, body, nil)
 	}
-	if fullMessage != nil {
-		message = r.createMessage(fullMessage)
+	if message != nil {
+		message = r.createMessage(message)
 	}
 	return
 }
@@ -99,10 +98,9 @@ func (r *restClientImpl) UpdateWebhookMessage(webhookID api.Snowflake, webhookTo
 		return
 	}
 
-	var fullMessage *api.FullWebhookMessage
-	rErr = r.Do(compiledRoute, body, &fullMessage)
-	if fullMessage != nil {
-		message = r.createMessage(fullMessage)
+	rErr = r.Do(compiledRoute, body, &message)
+	if message != nil {
+		message = r.createMessage(message)
 	}
 	return
 }
@@ -151,14 +149,7 @@ func (r *restClientImpl) createComponent(unmarshalComponent api.UnmarshalCompone
 	}
 }
 
-func (r *restClientImpl) createMessage(fullMessage *api.FullWebhookMessage) *api.WebhookMessage {
-	message := fullMessage.WebhookMessage
+func (r *restClientImpl) createMessage(message *api.WebhookMessage) *api.WebhookMessage {
 	message.Webhook = r.webhookClient
-	if fullMessage.UnmarshalComponents != nil {
-		for _, component := range fullMessage.UnmarshalComponents {
-			message.Components = append(message.Components, r.createComponent(component))
-		}
-	}
-
 	return message
 }
