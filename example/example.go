@@ -14,10 +14,10 @@ func main() {
 		return
 	}
 
-	//reader, _ := os.Open("gopher.png")
+	reader, _ := os.Open("gopher.png")
 	if _, err = webhook.SendMessage(api.NewWebhookMessageCreateBuilder().
 		SetContent("example message").
-		//AddFile("gopher.png", reader).
+		AddFile("gopher.png", reader).
 		Build(),
 	); err != nil {
 		fmt.Printf("failed to send webhook message: %s", err)
