@@ -8,7 +8,7 @@
 [![Disgo Discord](https://img.shields.io/badge/Disgo%20Discord-blue.svg)](https://discord.gg/wVDMGe3EmB)
 
 DisgoHook is a simple [Discord Webhook](https://discord.com/developers/docs/resources/webhook) library written
-in [Go](https://golang.org/) aimed to be easy use
+in [Go](https://golang.org/) aimed to be easy to use
 
 ## Getting Started
 
