@@ -31,7 +31,7 @@ like [logrus](https://github.com/sirupsen/logrus). This webhook then can be used
 
 ```go
 logger := logrus.New()
-webhook, err := disgohook.NewWebhookByToken(nil, logger, "webhook_id/webhook_token")
+webhook, err := disgohook.NewWebhookClientByToken(nil, logger, "webhook_id/webhook_token")
 
 message, err := webhook.SendContent("hello world!")
 ```
