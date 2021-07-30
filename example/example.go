@@ -4,12 +4,10 @@ import (
 	"fmt"
 	"github.com/DisgoOrg/disgohook"
 	"github.com/DisgoOrg/disgohook/api"
-	"github.com/DisgoOrg/log"
 	"os"
 )
 
 func main() {
-	log.Default().SetLogLevel(log.LevelDebug)
 	webhook, err := disgohook.NewWebhookClientByToken(nil, nil, os.Getenv("webhook_token"))
 	if err != nil {
 		fmt.Printf("failed to create webhook: %s", err)
