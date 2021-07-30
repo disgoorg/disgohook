@@ -1,31 +1,28 @@
 package main
 
 import (
-	"github.com/DisgoOrg/disgohook/api"
-	"os"
-
+	"fmt"
 	"github.com/DisgoOrg/disgohook"
-	"github.com/sirupsen/logrus"
+	"github.com/DisgoOrg/disgohook/api"
+	"github.com/DisgoOrg/log"
+	"os"
 )
 
 func main() {
-	logger := logrus.New()
-	logger.SetLevel(logrus.DebugLevel)
-	logger.Info("starting example...")
-
-	webhook, err := disgohook.NewWebhookClientByToken(nil, logger, os.Getenv("webhook_token"))
+	log.Default().SetLogLevel(log.LevelDebug)
+	webhook, err := disgohook.NewWebhookClientByToken(nil, nil, os.Getenv("webhook_token"))
 	if err != nil {
-		logger.Errorf("failed to create webhook: %s", err)
+		fmt.Printf("failed to create webhook: %s", err)
 		return
 	}
 
-	reader, _ := os.Open("gopher.png")
+	//reader, _ := os.Open("gopher.png")
 	if _, err = webhook.SendMessage(api.NewWebhookMessageCreateBuilder().
 		SetContent("example message").
-		AddFile("gopher.png", reader).
+		//AddFile("gopher.png", reader).
 		Build(),
 	); err != nil {
-		logger.Errorf("failed to send webhook message: %s", err)
+		fmt.Printf("failed to send webhook message: %s", err)
 		return
 	}
 }
