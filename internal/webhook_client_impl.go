@@ -12,6 +12,7 @@ import (
 
 var _ api.WebhookClient = (*webhookClientImpl)(nil)
 
+// ErrNoLogger is returned when no log.Logger implementation is returned
 var ErrNoLogger = errors.New("please provide a valid logger implementation")
 
 // NewWebhookClientImpl returns a new api.WebhookClient
