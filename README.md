@@ -28,7 +28,7 @@ import "github.com/DisgoOrg/disgohook"
 
 Create a new Webhook by `webhook_id/webhook_token`. (*This WebhookClient should be only created once as it holds important state*)
 
-As first param you can optionally pass your own `*http.Client` and as second parameter you can pass your own logger implementing [this](https://github.com/DisgoOrg/log/blob/master/logger.go) interface.
+As first param you can optionally pass your own [*http.Client](https://pkg.go.dev/net/http#Client) and as second parameter you can pass your own logger implementing [this](https://github.com/DisgoOrg/log/blob/master/logger.go) interface.
 This webhook then can be used to send, edit and delete messages
 
 ### Send Message
@@ -36,8 +36,14 @@ This webhook then can be used to send, edit and delete messages
 webhook, err := disgohook.NewWebhookClientByToken(nil, nil, "webhook_id/webhook_token")
 
 message, err := webhook.SendContent("hello world!")
-message, err := webhook.SendEmbeds(api.NewEmbedBuilder().SetDescription("hello world!").Build())
-message, err := webhook.SendMessage(api.NewWebhookMessageCreateBuilder().SetContent("hello world!").Build())
+message, err := webhook.SendEmbeds(api.NewEmbedBuilder().
+	SetDescription("hello world!").
+	Build(),
+)
+message, err := webhook.SendMessage(api.NewWebhookMessageCreateBuilder().
+	SetContent("hello world!").
+	Build(),
+)
 ```
 
 ### Edit Message
@@ -45,8 +51,16 @@ message, err := webhook.SendMessage(api.NewWebhookMessageCreateBuilder().SetCont
 webhook, err := disgohook.NewWebhookClientByToken(nil, nil, "webhook_id/webhook_token")
 
 message, err := webhook.EditContent("870741249114652722", "hello world!")
-message, err := webhook.EditEmbeds("870741249114652722", api.NewEmbedBuilder().SetDescription("hello world!").Build())
-message, err := webhook.EditMessage("870741249114652722", api.NewWebhookMessageUpdateBuilder().SetContent("hello world!").Build())
+message, err := webhook.EditEmbeds("870741249114652722", 
+	api.NewEmbedBuilder().
+	SetDescription("hello world!").
+	Build(),
+)
+message, err := webhook.EditMessage("870741249114652722", 
+	api.NewWebhookMessageUpdateBuilder().
+	SetContent("hello world!").
+	Build(), 
+)
 ```
 
 ### Delete Message
