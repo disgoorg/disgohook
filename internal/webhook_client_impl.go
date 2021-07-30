@@ -1,6 +1,7 @@
 package internal
 
 import (
+	"errors"
 	"net/http"
 
 	"github.com/DisgoOrg/log"
@@ -11,8 +12,13 @@ import (
 
 var _ api.WebhookClient = (*webhookClientImpl)(nil)
 
+var ErrNoLogger = errors.New("please provide a valid logger implementation")
+
 // NewWebhookClientImpl returns a new api.WebhookClient
-func NewWebhookClientImpl(client *http.Client, logger log.Logger, id api.Snowflake, token string) api.WebhookClient {
+func NewWebhookClientImpl(client *http.Client, logger log.Logger, id api.Snowflake, token string) (api.WebhookClient, error) {
+	if logger == nil {
+		return nil, ErrNoLogger
+	}
 	webhook := &webhookClientImpl{
 		logger:                 logger,
 		defaultAllowedMentions: &api.DefaultAllowedMentions,
@@ -20,7 +26,7 @@ func NewWebhookClientImpl(client *http.Client, logger log.Logger, id api.Snowfla
 		token:                  token,
 	}
 	webhook.restClient = newRestClientImpl(client, webhook)
-	return webhook
+	return webhook, nil
 }
 
 type webhookClientImpl struct {

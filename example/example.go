@@ -12,18 +12,19 @@ func main() {
 	logger := logrus.New()
 	logger.SetLevel(logrus.DebugLevel)
 	logger.Info("starting example...")
+
 	webhook, err := disgohook.NewWebhookClientByToken(nil, logger, os.Getenv("webhook_token"))
 	if err != nil {
 		logger.Errorf("failed to create webhook: %s", err)
 		return
 	}
+
 	reader, _ := os.Open("gopher.png")
-	_, err = webhook.SendMessage(api.NewWebhookMessageCreateBuilder().
+	if _, err = webhook.SendMessage(api.NewWebhookMessageCreateBuilder().
 		SetContent("example message").
 		AddFile("gopher.png", reader).
 		Build(),
-	)
-	if err != nil {
+	); err != nil {
 		logger.Errorf("failed to send webhook message: %s", err)
 		return
 	}

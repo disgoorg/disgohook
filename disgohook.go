@@ -20,5 +20,5 @@ func NewWebhookClientByToken(httpClient *http.Client, logger log.Logger, webhook
 
 // NewWebhookClientByIDToken returns a new api.WebhookClient with the given http.Client, log.Logger, webhookID & webhookToken
 func NewWebhookClientByIDToken(httpClient *http.Client, logger log.Logger, webhookID api.Snowflake, webhookToken string) (api.WebhookClient, error) {
-	return internal.NewWebhookClientImpl(httpClient, logger, webhookID, webhookToken), nil
+	return internal.NewWebhookClientImpl(httpClient, logger, webhookID, webhookToken)
 }
