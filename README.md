@@ -1,3 +1,5 @@
+# Please use https://github.com/DisgoOrg/disgo/tree/development/webhook instead
+
 # disgohook
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/DisgoOrg/disgohook.svg)](https://pkg.go.dev/github.com/DisgoOrg/disgohook)
