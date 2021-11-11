@@ -1,7 +1,7 @@
+# ⚠⚠⚠THIS PACKAGE WAS MOVED TO [HERE](https://github.com/DisgoOrg/disgo/tree/development/webhook)⚠⚠⚠
+
+
 # disgohook
-
-## Please use https://github.com/DisgoOrg/disgo/tree/development/webhook instead
-
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/DisgoOrg/disgohook.svg)](https://pkg.go.dev/github.com/DisgoOrg/disgohook)
 [![Go Report](https://goreportcard.com/badge/github.com/DisgoOrg/disgohook)](https://goreportcard.com/report/github.com/DisgoOrg/disgohook)
