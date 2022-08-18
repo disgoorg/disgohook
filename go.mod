@@ -1,3 +1,4 @@
+// Deprecated: use github.com/disgoorg/disgo instead.
 module github.com/DisgoOrg/disgohook
 
 go 1.16
